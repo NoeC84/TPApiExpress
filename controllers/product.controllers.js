@@ -1,5 +1,6 @@
 const axios = require('axios');
 const Product = require('../models/Product');
+const { response } = require("express");
 
 exports.test = (req, res) => {
     res.status(200).json({ message: 'lista de productos' });
@@ -41,6 +42,7 @@ exports.getProductByName = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
+    console.log('createProduct')
     try {
         const newProduct = req.body;
         const product = await Product.create(newProduct);
@@ -77,18 +79,12 @@ exports.unsubscribeProduct = async (req, res) => {
     }
 };
 
-exports.getJPHProducts = async (_, res) => {
+exports.getJPHProducts = async (req, res) => {
     try {
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: 'http://jsonplaceholder.typicode.com/posts',
-            
-        };
-        const { data } = await axios.request(config);
-        res.status(200).json({ products: data });
-        console.log(data)
+        console.log('entro');
+        const productos = await axios.get("https://fakestoreapi.com/products");
+        res.status(200).json({ products: productos.data });
     } catch (error) {
-        res.status(502).json({ message: 'Error al obtener productos de JsonPlaceHolder - ' + error.message });
+        res.status(500).json({ message: "Error al obtener productos JPH - " + error.message });
     }
 };

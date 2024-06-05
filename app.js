@@ -13,16 +13,14 @@ app.get('/', (req, res) => {
     res.send("<h2>Te damos la Bienvenida al lugar donde vas a encontrar todo lo que necesites para tu hogar.</h2>"); 
 })
 
-app.use('/products', productRouter); 
+app.get('/products_api', productRouter);
 
-app.get('/jphProducts', (req, res) => {
-    console.log(res);
-    const data = req;
-    res.json(data)
-})
+app.get('/products_db', productRouter);
+app.delete('/delete/:id', productRouter);
+app.post('/create', productRouter)
 
 dbConnect();
 
-app.listen(PORT, ()=>{
-    console.log(`Aplicación escuchando en puerto ${PORT}. Acceda a: http://localhost:${PORT}`); 
-})
+app.listen(PORT, () => {
+    console.log(`Aplicación escuchando en puerto ${PORT}. Acceda a: http://localhost:${PORT}`);
+});

@@ -4,11 +4,9 @@ const router = express.Router();
 const productController = require("../controllers/product.controllers");
 const validate = require("../middlewares/validate");
 
-
-
-router.get("/", productController.getProducts);
-router.get("/:id", productController.getProductById);
-router.get("/jphProducts", productController.getJPHProducts);
+router.get("/products_db", productController.getProducts);
+// router.get("/:id", productController.getProductById);
+router.get("/products_api", productController.getJPHProducts);
 
 router.post("/create", validate, productController.createProduct);
 router.put("/:id", validate, productController.updateProduct);
