@@ -1,6 +1,5 @@
 const axios = require('axios');
 const Product = require('../models/Product');
-const { response } = require("express");
 
 exports.test = (req, res) => {
     res.status(200).json({ message: 'lista de productos' });
@@ -42,7 +41,7 @@ exports.getProductByName = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
-    console.log('createProduct')
+    console.log('createProduct');
     try {
         const newProduct = req.body;
         const product = await Product.create(newProduct);
@@ -81,7 +80,6 @@ exports.unsubscribeProduct = async (req, res) => {
 
 exports.getJPHProducts = async (req, res) => {
     try {
-        console.log('entro');
         const productos = await axios.get("https://fakestoreapi.com/products");
         res.status(200).json({ products: productos.data });
     } catch (error) {
